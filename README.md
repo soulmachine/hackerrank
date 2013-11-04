@@ -1,7 +1,7 @@
 #HackerRank题解
 -----------------
 ##PDF下载
-<a href="https://github.com/soulmachine/hackerrank/blob/master/hackerrank.pdf?raw=true">HackerRank题解.pdf</a>
+<a href="https://github.com/soulmachine/hackerrank/raw/master/HackerRank%E9%A2%98%E8%A7%A3.pdf">HackerRank题解.pdf</a>
 
 ##LaTeX模板
 本书使用的是陈硕开源的[模板](https://github.com/chenshuo/typeset)。该模板已经用于陈硕写的书[《Linux 多线程服务端编程：使用 muduo C++ 网络库》](http://chenshuo.com/book/)，已经出版。
