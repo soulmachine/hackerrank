@@ -1,0 +1,248 @@
+\chapter{Sorting}
+
+\section{Intro to Tutorial Challenges} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Intro-to-Tutorial-Challenges}
+
+
+\subsubsection{About Tutorial Challenges}
+Many of the challenges on HackerRank are difficult and assume you already know the relevant algorithms very well. These tutorial challenges are different. They break down algorithmic concepts into smaller challenges, so you can learn the algorithm by doing the challenges.
+
+These challenges are intended for people who know some programming and now want to learn some algorithms. You could be a student majoring in Computers, a self-taught programmer, or an experienced developer who wants an active algorithms review!
+
+The first series of challenges covers sorting. These are the different challenges:
+
+
+\subsubsection{Tutorial Challenges - Sorting}
+Insertion Sort challenges
+\begindot
+\item Insertion Sort 1 - Inserting
+\item Insertion Sort 2 - Sorting
+\item Correctness of Algorithms
+\item Running Time of Algorithms
+\myenddot
+
+Quicksort challenges
+\begindot
+\item Quicksort 1 - Partition
+\item Quicksort 2 - Sorting
+\item Quicksort In-place (advanced)
+\item Running time of Quicksort
+\myenddot
+
+Counting sort challenges
+\begindot
+\item Counting Sort 1 - Counting
+\item Counting Sort 2 - Simple sort
+\item Counting Sort 3 - Preparing
+\item Full Counting Sort (advanced)
+\myenddot
+
+There will also be some challenges where you apply what you learned.
+
+
+\subsubsection{About the Challenges}
+The challenges will describe some topic and then ask you to code a solution. As you progress through the challenges, you will learn concepts in algorithms. On each challenge, you will receive input on STDIN and you will need to print the correct output to STDOUT.
+
+For many challenges, helper methods will be provided for you to process the input into a useful format, like an array. You can use these methods to get started with your program, or you can write your own input methods if you want. Your code just needs to print the right output to each test case.
+
+
+\subsubsection{Sample Challenge}
+This is a simple challenge to get things started. Given a sorted array (ar) and a number (V), can you print the index location of V in the array?
+
+{The next section describes the input format. You can often skip it if you are using included methods. }
+
+
+\subsubsection{Input Format}
+There will be three lines of input:
+\begindot
+\item $V$ - the value you are looking for.
+\item $n$ - the size of the array.
+\item $ar$ - $n$ numbers that makes up the array.
+\myenddot
+
+
+\subsubsection{Output Format}
+Output the index of $V$ in the array.
+
+{The next section describes the constraints and ranges of the input. Occasionally you want to check here to see how big the input could be. }
+
+
+\subsubsection{Constraints}
+$1 \leq n \leq 1000$
+
+$-1000 \leq x \leq 1000 , x \in ar$
+
+{This “sample” shows the first input case. It is often useful to skip to the sample to understand a challenge. }
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+4
+6
+1 4 5 7 9 12
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+1
+\end{Code}
+
+
+\subsubsection{Explanation}
+$V = 4$. The 4 is located in the 1th spot on the array, so the answer is 1.
+
+
+\subsubsection{分析}
+二分查找
+
+
+\subsubsection{代码}
+\begin{Code}
+#include <iostream>
+using namespace std;
+
+/** 数组元素的类型 */
+typedef int elem_t;
+/**
+* @brief 有序顺序表的折半查找算法.
+*
+* @param[in] a 存放数据元素的数组，已排好序
+* @param[in] n 数组的元素个数
+* @param[in] x 要查找的元素
+* @return 如果找到 x，则返回其下标。 如果找
+* 不到 x 且 x 小于 array 中的一个或多个元素，则为一个负数，该负数是大
+* 于 x 的第一个元素的索引的按位求补。 如果找不到 x 且 x 大于 array 中的
+* 任何元素，则为一个负数，该负数是（最后一个元素的索引加 1）的按位求补。
+*/
+int binary_search(const elem_t a[], const int n, const elem_t x) {
+    int left = 0, right = n - 1, mid;
+    while (left <= right) {
+        mid = left + (right - left) / 2;
+        if (x > a[mid]) {
+            left = mid + 1;
+        }
+        else if (x < a[mid]) {
+            right = mid - 1;
+        }
+        else {
+            return mid;
+        }
+    }
+    return -(left + 1);
+}
+
+
+int main() {
+    int V, n;
+    cin >> V >> n;
+
+    int *ar = new int[n];
+    for (int i = 0; i < n; ++i)
+        cin >> ar[i];
+    const int pos = binary_search(ar, n, V);
+    cout << pos << endl;
+    return 0;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Insertion Sort - Part 1} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Insertion-Sort-Part-1}
+
+
+\subsubsection{Sorting}
+One common task for computers is to sort data. For example, people might want to see all their files on a computer sorted by size. Since sorting is a simple problem with many different possible solutions, it is often used to introduce the study of algorithms.
+
+\subsubsection{Insertion Sort}
+These challenges will cover Insertion Sort, a simple and intuitive sorting algorithm. We will first start with an already sorted list.
+
+\subsubsection{Insert element into sorted list}
+Given a sorted list with an unsorted number V in the right-most cell, can you write some simple code to insert V into the array so it remains sorted?
+
+Print the array every time a value is shifted in the array until the array is fully sorted. The goal of this challenge is to follow the correct order of insertion sort.
+
+Guideline: You can copy the value of V to a variable, and consider its cell “empty”. Since this leaves an extra cell empty on the right, you can shift everything over until V can be inserted. This will create a duplicate of each value, but when you reach the right spot, you can replace a value with V.
+
+
+\subsubsection{Input Format}
+There will be two lines of input:
+\begindot
+\item $s$ - the size of the array
+\item $ar$ - the sorted array of integers
+\myenddot
+
+
+\subsubsection{Output Format}
+On each line, output the entire array every time an item is shifted in it.
+
+
+\subsubsection{Constraints}
+$1 \leq s \leq 1000$
+
+$-10000 \leq x \leq 10000, x \in ar$
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+5
+2 4 6 8 3
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+2 4 6 8 8 
+2 4 6 6 8 
+2 4 4 6 8 
+2 3 4 6 8 
+\end{Code}
+
+
+\subsubsection{Explanation}
+3 is removed from the end of the array.
+
+In the 1st line 8 > 3, 8 is shifted one cell right. 
+
+In the 2nd line 6 > 3, 6 is shifted one cell right. 
+
+In the 3rd line 4 > 3, 4 is shifted one cell right. 
+
+In the 4th line 2 < 3, 3 is placed at position 2.
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+void print(const vector<int> &ar) {
+    for (auto e : ar)
+        cout << e << " ";
+    cout << endl;
+}
+
+void insertionSort(vector<int>  &ar) {
+    const auto tmp = ar[ar.size() - 1];
+    int i;
+    for (i = ar.size() - 2; i >= 0 && ar[i] > tmp; --i) {
+        ar[i + 1] = ar[i];
+        print(ar);
+    }
+    ar[i+1] = tmp;
+    print(ar);
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot

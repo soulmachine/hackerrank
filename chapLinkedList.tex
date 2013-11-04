@@ -1,0 +1,1056 @@
+\chapter{Linked List}
+
+
+\section{Print the elements of a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Print-the-elements-of-a-linked-list}
+
+If you’re new to working with linked lists, this is a great exercise to get familiar with them. You’re given the pointer to the head node of a linked list and you need to print all its elements in order, one element per line. The head pointer may be null meaning that the list is empty - in that case, don’t print anything!
+
+
+\subsubsection{Input Format}
+You have to complete the \code{void Print(Node* head)} method which takes one argument - the head of the linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Print the elements of the linked list to stdout/console (using \fn{printf} or \fn{cout}) , one per line.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL
+1->2->3->NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+1
+2
+3
+\end{Code}
+
+
+\subsubsection{Explanation}
+There is no output for the first sample input, then print 1, 2 and 3 each in a new line.
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{递归版}
+\begin{Code}
+void Print(Node *head){
+    if (head != nullptr) {
+        cout << head->data << endl;
+        Print(head->next);
+    }
+    return;
+}
+\end{Code}
+
+
+\subsubsection{迭代版}
+\begin{Code}
+void Print(Node *head){
+    for (; head != nullptr; head = head->next) {
+        cout << head->data << endl;
+    }
+    return;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item Print the elements of a linked list in reverse, see \S \ref{sec:Print-the-elements-of-a-linked-list-in-reverse}
+\myenddot
+
+
+\section{Insert a node at the tail of a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Insert-a-node-at-the-tail-of-a-linked-list}
+
+You’re given the pointer to the head node of a linked list and an integer to add to the list. Create a new node with the given integer, insert this node at the tail of the linked list and return the head node. The head pointer given may be null meaning that the initial list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Insert(Node* head, int data)} method which takes two arguments - the head of the linked list and the integer to insert. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Insert the new node at the tail and return the head of the updated linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL, data = 2
+2 –> NULL, data = 3
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+2 -->NULL
+2 --> 3 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item We have an empty list and we insert 2.
+\item We have 2 in the tail, when 3 is inserted 3 becomes the tail.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+Node* Insert(Node *head, int data) {
+    Node dummy{-1, head};
+    Node *node;
+    for (node = &dummy; node->next != nullptr; node = node->next);
+    node->next = new Node();
+    node = node->next;
+    node->data = data;
+    node->next = nullptr;
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Insert a node at the head of a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Insert-a-node-at-the-head-of-a-linked-list}
+
+You’re given the pointer to the head node of a linked list and an integer to add to the list. Create a new node with the given integer, insert this node at the head of the linked list and return the new head node. The head pointer given may be null meaning that the initial list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Insert(Node* head, int data)} method which takes two arguments - the head of the linked list and the integer to insert. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Insert the new node at the head and return the head of the updated linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL , data = 1
+1 –> NULL , data = 2
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+1 --> NULL
+2 --> 1 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item We have an empty list, on inserting 1, 1 becomes new head.
+\item We have a list with 1 as head, on inserting 2, 2 becomes the new head.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+Node* Insert(Node *head, int data) {
+    Node *node = new Node();
+    node->data = data;
+    node->next = head;
+    return node;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Insert a node at a specific position in a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Insert-a-node-at-a-specific-position-in-a-linked-list}
+
+You’re given the pointer to the head node of a linked list, an integer to add to the list and the position at which the integer must be inserted. Create a new node with the given integer, insert this node at the desired position and return the head node. A position of 0 indicates head, a position of 1 indicates one node away from the head and so on. The head pointer given may be null meaning that the initial list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Insert(Node* head, int data, int position)} method which takes three arguments - the head of the linked list, the integer to insert and the position at which the integer must be inserted. You should NOT read any input from stdin/console. position will always be between 0 and the number of the elements in the list (inclusive).
+
+
+\subsubsection{Output Format}
+Insert the new node at the desired position and return the head of the updated linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL, data = 3, position = 0
+3 –> NULL, data = 4, position = 0
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+3 --> NULL
+4 --> 3 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item we have an empty list and position 0. 3 becomes head.
+\item 4 is added to position 0, hence 4 becomes head.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+Node* InsertNth(Node *head, int data, int position) {
+    Node dummy{ -1, head };
+    Node *curr = &dummy;
+    for (int i = 0; i < position; ++i)
+        curr = curr->next;
+    Node *node = new Node();
+    node->data = data;
+    node->next = curr->next;
+    curr->next = node;
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Delete a node from a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Delete-a-node-from-a-linked-list}
+
+You’re given the pointer to the head node of a linked list and the position of a node to delete. Delete the node at the given position and return the head node. A position of 0 indicates head, a position of 1 indicates one node away from the head and so on. The list may become empty after you delete the node.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Delete(Node* head, int position)} method which takes two arguments - the head of the linked list and the position of the node to delete. You should NOT read any input from stdin/console. position will always be at least 0 and less than the number of the elements in the list.
+
+
+\subsubsection{Output Format}
+Delete the node at the given position and return the head of the updated linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 –> 2 –> 3 –> NULL, position = 0
+1 –> NULL , position = 0
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+2 --> 3 --> NULL
+NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item 0th position is removed, 1 is deleted from the list.
+\item Again 0th position is deleted and we are left with empty list.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+Node* Delete(Node *head, int position) {
+    Node dummy{ -1, head };
+    Node *curr = &dummy;
+    for (int i = 0; i < position; ++i)
+        curr = curr->next;
+    Node *tmp = curr->next;
+    curr->next = curr->next->next;
+    delete tmp;
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Print the elements of a linked list in reverse} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Print-the-elements-of-a-linked-list-in-reverse}
+
+You’re given the pointer to the head node of a linked list and you need to print all its elements in reverse order from tail to head, one element per line. The head pointer may be null meaning that the list is empty - in that case, don’t print anything!
+
+
+\subsubsection{Input Format}
+You have to complete the \code{void ReversePrint(Node* head)} method which takes one argument - the head of the linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Print the elements of the linked list in reverse order to stdout/console (using printf or cout) , one per line.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 –> 2 –> NULL
+2 –> 1 –> 4 –> 5 –> NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+2
+1
+5
+4
+1
+2
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item First list is printed from tail to head hence 2,1
+\item Similarly second list is also printed from tail to head.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{迭代版}
+\begin{Code}
+#include <stack>
+void ReversePrint(Node *head) {
+    stack<int> s;
+    for (; head != nullptr; head = head->next) {
+        s.push(head->data);
+    }
+    while (!s.empty()) {
+        auto e = s.top();
+        s.pop();
+        cout << e << endl;
+    }
+}
+\end{Code}
+
+
+\subsubsection{递归版}
+\begin{Code}
+void ReversePrint(Node *head) {
+    if (head != nullptr) {
+        ReversePrint(head->next);
+        cout << head->data << endl;
+    }
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item Print the elements of a linked list, see \S \ref{sec:Print-the-elements-of-a-linked-list}
+\myenddot
+
+
+\section{Reverse a linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Reverse-a-linked-list}
+
+You’re given the pointer to the head node of a linked list. Change the next pointers of the nodes so that their order is reversed. The head pointer given may be null meaning that the initial list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Reverse(Node* head)} method which takes one argument - the head of the linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Change the next pointers of the nodes that their order is reversed and return the head of the reversed linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL
+2 –> 3 –> NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+NULL
+3 --> 2 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item Empty list remains empty
+\item List is reversed from 3,2 to 2,3
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{迭代版}
+\begin{Code}
+Node* Reverse(Node *head) {
+    if (head == nullptr || head->next == nullptr) return head;
+
+    Node *prev = head;
+    for (Node *curr = head->next, *next = curr->next; curr;
+        prev = curr, curr = next, next = next ? next->next : nullptr) {
+        curr->next = prev;
+    }
+    head->next = nullptr;
+    return prev;
+}
+\end{Code}
+
+
+\subsubsection{递归版}
+\begin{Code}
+Node* Reverse(Node *head) {
+    static Node* tail;
+    if (head == nullptr || head->next == nullptr) {
+        tail = head;
+        return head;
+    }
+
+    Node *head_next = Reverse(head->next);
+    if (tail != nullptr) {
+        tail->next = head;
+        head->next = nullptr;
+    }
+    tail = head;
+    return head_next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item Reverse a doubly linked list, see \S \ref{sec:Reverse-a-doubly-linked-list}
+\myenddot
+
+
+\section{Compare two linked lists} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Compare-two-linked-lists}
+
+You’re given the pointer to the head nodes of two linked lists. Compare the data in the nodes of the linked lists to check if they are equal. The lists are equal only if they have the same number of nodes and corresponding nodes contain the same data. Either head pointer given may be null meaning that the corresponding list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{int Compare(Node* headA, Node* headB)} method which takes two arguments - the heads of the two linked lists to compare. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Compare the two linked lists and return 1 if the lists are equal. Otherwise, return 0. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL, 1 –> NULL
+1 –> 2 –> NULL, 1 –> 2 –> NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+0
+1
+\end{Code}
+
+
+\subsubsection{分析}
+
+
+\subsubsection{递归版}
+\begin{Code}
+int CompareLists(Node *headA, Node* headB) {
+    if (headA == nullptr && headB == nullptr) return true;
+    if (headA == nullptr || headB == nullptr) return false;
+    return headA->data == headB->data  && CompareLists(headA->next, headB->next);
+}
+\end{Code}
+
+
+\subsubsection{迭代版}
+\begin{Code}
+int CompareLists(Node *headA, Node* headB) {
+    for (; headA != nullptr || headB != nullptr; 
+        headA = headA ? headA->next : nullptr,
+        headB = headB ? headB->next : nullptr) {
+        if (headA == nullptr || headB == nullptr) return 0;
+        if (headA->data != headB->data) return 0;
+    }
+    return 1;
+}
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item We compare an empty list with a list containing 1. They don’t match, hence return 0.
+\item We have 2 similar lists. Hence return 1.
+\end{enumerate}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Merge two sorted linked lists} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Merge-two-sorted-linked-lists}
+
+You’re given the pointer to the head nodes of two sorted linked lists. The data in both lists will be sorted in ascending order. Change the next pointers to obtain a single, merged linked list which also has data in ascending order. Either head pointer given may be null meaning that the corresponding list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* MergeLists(Node* headA, Node* headB)} method which takes two arguments - the heads of the two sorted linked lists to merge. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Change the next pointer of individual nodes so that nodes from both lists are merged into a single list. Then return the head of this merged list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 -> 3 -> 5 -> 6 -> NULL
+2 -> 4 -> 7 -> NULL
+
+15 -> NULL
+12 -> NULL
+
+NULL 
+1 -> 2 -> NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+12 -> 15 -> NULL
+1 -> 2 -> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item We merge elements in both list in sorted order and output.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{迭代版}
+\begin{Code}
+#include <climits>
+Node* MergeLists(Node *headA, Node* headB) {
+    Node dummy;
+    for (Node* p = &dummy; headA != nullptr || headB != nullptr; p = p->next) {
+        int valA = headA == nullptr ? INT_MAX : headA->data;
+        int valB = headB == nullptr ? INT_MAX : headB->data;
+        if (valA <= valB) {
+            p->next = headA;
+            headA = headA->next;
+        } else {
+            p->next = headB;
+            headB = headB->next;
+        }
+    }
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{递归版}
+\begin{Code}
+#include <climits>
+Node* MergeLists(Node *headA, Node* headB) {
+    if (headA == nullptr && headB == nullptr) return nullptr;
+    Node *head = nullptr;
+    int valA = headA == nullptr ? INT_MAX : headA->data;
+    int valB = headB == nullptr ? INT_MAX : headB->data;
+    if (valA <= valB) {
+        head = headA;
+        headA = headA->next;
+    } else {
+        head = headB;
+        headB = headB->next;
+    }
+
+    head->next = MergeLists(headA, headB);
+    return head;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Get the value of the node at a specific position from the tail} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Get-the-value-of-the-node-at-a-specific-position-from-the-tail}
+
+You’re given the pointer to the head node of a linked list and a specific position. Counting backwards from the tail node of the linked list, get the value of the node at the given position. A position of 0 corresponds to the tail, 1 corresponds to the node before the tail and so on.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{int GetNode(Node* head, int positionFromTail)} method which takes two arguments - the head of the linked list and the position of the node from the tail. positionFromTail will be at least 0 and less than the number of nodes in the list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Find the node at the given position counting backwards from the tail. Then return the data contained in this node. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 -> 3 -> 5 -> 6 -> NULL, positionFromTail = 0
+1 -> 3 -> 5 -> 6 -> NULL, positionFromTail = 2
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+6
+3
+\end{Code}
+
+
+\subsubsection{分析}
+设两个指针$p,q$，让$q$先走$positionFromTail$步，然后$p$和$q$一起走，直到$q$走到尾节点，删除\fn{p->next}即可。
+
+
+\subsubsection{代码}
+\begin{Code}
+int GetNode(Node *head, int positionFromTail) {
+    Node *p = head, *q = head;
+
+    for (int i = 0; i < positionFromTail; i++)  // q先走n步
+        q = q->next;
+
+    while (q->next) { // 一起走
+        p = p->next;
+        q = q->next;
+    }
+
+    return p->data;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Delete duplicate-value nodes from a sorted linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Delete-duplicate-value-nodes-from-a-sorted-linked-list}
+
+You’re given the pointer to the head node of a sorted linked list, where the data in the nodes is in ascending order. Delete as few nodes as possible so that the list does not contain any value more than once. The given head pointer may be null indicating that the list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* RemoveDuplicates(Node* head)} method which takes one argument - the head of the sorted linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Delete as few nodes as possible to ensure that no two nodes have the same data. Adjust the next pointers to ensure that the remaining nodes form a single sorted linked list. Then return the head of the sorted updated linked list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 -> 1 -> 3 -> 3 -> 5 -> 6 -> NULL
+NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+1 -> 3 -> 5 -> 6 -> NULL
+NULL
+\end{Code}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{递归版}
+\begin{Code}
+void recur(Node *prev, Node *cur) {
+    if (cur == nullptr) return;
+
+    if (prev->data == cur->data) { // 删除head
+        prev->next = cur->next;
+        delete cur;
+        recur(prev, prev->next);
+    } else {
+        recur(prev->next, cur->next);
+    }
+}
+
+Node* RemoveDuplicates(Node *head) {
+    if (!head) return head;
+    Node dummy{ head->data + 1, head }; // 值只要跟head不同即可
+
+    recur(&dummy, head);
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{递归版}
+\begin{Code}
+Node* RemoveDuplicates(Node *head) {
+    if (head == nullptr) return nullptr;
+
+    for (Node *prev = head, *cur = head->next; cur; cur = cur->next) {
+        if (prev->data == cur->data) {
+            prev->next = cur->next;
+            delete cur;
+        } else {
+            prev = cur;
+        }
+    }
+    return head;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Detect whether a linked list contains a cycle} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Detect-whether-a-linked-list-contains-a-cycle}
+
+You’re given the pointer to the head node of a linked list. Check if the next pointer of any of the nodes points to a previous node, thus forming a cycle.The head pointer given may be null meaning that the list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{int HasCycle(Node* head)} method which takes one argument - the head of the linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Check whether the linked list has a cycle and return 1 if there is a cycle. Otherwise, return 0. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 --> NULL
+1 --> 2 --> 3
+      ^     |
+      |     |
+       -----     
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+0
+1
+\end{Code}
+
+
+\subsubsection{分析}
+最容易想到的方法是，用一个哈希表\fn{unordered_map<int, bool> visited}，记录每个元素是否被访问过，一旦出现某个元素被重复访问，说明存在环。空间复杂度$O(n)$，时间复杂度$O(N)$。
+
+最好的方法是时间复杂度$O(n)$，空间复杂度$O(1)$的。设置两个指针，一个快一个慢，快的指针每次走两步，慢的指针每次走一步，如果快指针和慢指针相遇，则说明有环。参考\myurl{ http://leetcode.com/2010/09/detecting-loop-in-singly-linked-list.html}
+
+
+\subsubsection{代码}
+\begin{Code}
+int HasCycle(Node* head) {
+    // 设置两个指针，一个快一个慢
+    Node *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item First list has no cycle, hence return 0 
+\item Second list is shown to have a cycle, hence return 1.
+\end{enumerate}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Find the merge point of two joined linked lists} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Find-the-merge-point-of-two-joined-linked-lists}
+
+You’re given the pointer to the head nodes of two linked lists that merge together at some node. Find the node at which this merger happens. The two head nodes will be different and neither will be NULL.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{int FindMergeNode(Node* headA, Node* headB)} method which takes two arguments - the heads of the linked lists. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Find the node at which both lists merge and return the data of that node. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+1 --> 2 --> 3 --> NULL
+      ^
+      |
+1-----                           
+
+1 --> 2 --> 3 --> NULL
+            ^
+            |
+      1----- 
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+2
+3
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item As shown in the Input, 2 is the merge point.
+\item Similarly 3 is merging point
+\end{enumerate}
+
+
+\subsubsection{分析}
+思路一：分别遍历两个单链表，计算出它们的长度$M$和$N$，假设$M$比$N$大，则长度为$M$的单链表先前进$M-N$，然后两个单链表同时前进，前进的同时比较当前的两个元素，如果相等，则必是交点。
+
+思路二：将单链表的尾部链接到其中一个单链表的首节点，就构成了一个环，环的入口点就是交点。
+
+
+\subsubsection{代码}
+\begin{Code}
+int ListLength(const Node *head) {
+    int len = 0;
+    for (; head; head = head->next)
+        ++len;
+    return len;
+}
+
+int FindMergeNode(Node *headA, Node *headB) {
+    const int M = ListLength(headA);
+    const int N = ListLength(headB);
+    if (M < N) return FindMergeNode(headB, headA);
+
+    for (int i = M - N; i > 0; --i)
+        headA = headA->next;
+
+    for (; headA; headA = headA->next, headB = headB->next) {
+        if (headA == headB)
+            return headA->data;
+    }
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Insert a node into a sorted doubly linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Insert-a-node-into-a-sorted-doubly-linked-list}
+
+You’re given the pointer to the head node of a sorted doubly linked list and an integer to insert into the list. The data in the nodes of the list are in ascending order. Create a node and insert it into the appropriate position in the list. The head node might be NULL to indicate that the list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* SortedInsert(Node* head, int data)} method which takes two arguments - the head of the sorted, doubly linked list and the value to insert. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Create a node with the given data and insert it into the given list, making sure that the new list is also sorted. Then return the head node of the updated list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL , data = 2
+NULL <– 2 <–> 4 <–> 6 –> NULL , data = 5
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+NULL <-- 2 --> NULL
+NULL <-- 2 <--> 4 <--> 5 <--> 6 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item We han an empty list, 2 is inserted.
+\item Data 5 is inserted such as list remains sorted.
+\end{enumerate}
+
+
+\subsubsection{分析}
+无
+
+
+\subsubsection{代码}
+\begin{Code}
+#include <climits>
+Node* SortedInsert(Node *head, int data) {
+    Node dummy{ INT_MIN, head, nullptr };
+    Node *prev = &dummy;
+    while (prev->next && prev->next->data < data) {
+        prev = prev->next;
+    }
+    Node *new_node = new Node();
+    new_node->data = data;
+    new_node->next = prev->next;
+    new_node->prev = prev;
+    prev->next = new_node;
+    if (new_node->next) new_node->next->prev = new_node;
+    
+    dummy.next->prev = nullptr;
+    return dummy.next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item 无
+\myenddot
+
+
+\section{Reverse a doubly linked list} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:Reverse-a-doubly-linked-list}
+
+You’re given the pointer to the head node of a doubly linked list. Reverse the order of the nodes in the list. The head node might be NULL to indicate that the list is empty.
+
+
+\subsubsection{Input Format}
+You have to complete the \code{Node* Reverse(Node* head)} method which takes one argument - the head of the doubly linked list. You should NOT read any input from stdin/console.
+
+
+\subsubsection{Output Format}
+Change the next and prev pointers of all the nodes so that the direction of the list is reversed. Then return the head node of the reversed list. Do NOT print anything to stdout/console.
+
+
+\subsubsection{Sample Input}
+\begin{Code}
+NULL
+NULL <– 2 <–> 4 <–> 6 –> NULL
+\end{Code}
+
+
+\subsubsection{Sample Output}
+\begin{Code}
+NULL
+NULL <-- 6 <--> 4 <--> 2 --> NULL
+\end{Code}
+
+
+\subsubsection{Explanation}
+\begin{enumerate}
+\item Empty list, so nothing to do.
+\item 2,4,6 become 6,4,2 o reversing in the given doubly linked list.
+\end{enumerate}
+
+
+\subsubsection{分析}
+与 \S \ref{sec:Reverse-a-linked-list}节"Reverse a linked list"很类似。
+
+
+\subsubsection{迭代版}
+\begin{Code}
+Node* Reverse(Node* head) {
+    if (head == nullptr || head->next == nullptr) return head;
+
+    Node *prev = head;
+    for (Node *curr = head->next, *next = curr->next; curr;
+        prev = curr, curr = next, next = next ? next->next : nullptr) {
+            curr->next = prev;
+            prev->prev = curr;
+    }
+    head->next = nullptr;
+    prev->prev = nullptr;
+    return prev;
+}
+\end{Code}
+
+
+\subsubsection{递归版}
+\begin{Code}
+Node* Reverse(Node* head) {
+    static Node* tail;
+    if (head == nullptr || head->next == nullptr) {
+        tail = head;
+        return head;
+    }
+
+    Node *head_next = Reverse(head->next);
+    head_next->prev = nullptr;
+    if (tail != nullptr) {
+        tail->next = head;
+        head->prev = tail;
+        head->next = nullptr;
+    }
+    tail = head;
+    return head_next;
+}
+\end{Code}
+
+
+\subsubsection{相关题目}
+\begindot
+\item Reverse a linked list, see \S \ref{sec:Reverse-a-linked-list}
+\myenddot
